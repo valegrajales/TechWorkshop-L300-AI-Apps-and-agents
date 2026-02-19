@@ -6,6 +6,14 @@ param userPrincipalId string = deployer().objectId
 @description('Primary location for all resources.')
 param location string = resourceGroup().location
 
+@allowed([
+  'B1'
+  'S1'
+  'P1v3'
+])
+@description('App Service Plan SKU. Use B1 for constrained subscriptions and S1/P1v3 for higher capacity.')
+param appServicePlanSku string = 'S1'
+
 var cosmosDbName = '${uniqueString(resourceGroup().id)}-cosmosdb'
 var cosmosDbDatabaseName = 'zava'
 var storageAccountName = '${uniqueString(resourceGroup().id)}sa'
@@ -15,7 +23,6 @@ var webAppName = '${uniqueString(resourceGroup().id)}-app'
 var appServicePlanName = '${uniqueString(resourceGroup().id)}-cosu-asp'
 var logAnalyticsName = '${uniqueString(resourceGroup().id)}-cosu-la'
 var appInsightsName = '${uniqueString(resourceGroup().id)}-cosu-ai'
-var webAppSku = 'S1'
 var registryName = '${uniqueString(resourceGroup().id)}cosureg'
 var registrySku = 'Standard'
 
@@ -185,7 +192,7 @@ resource appServicePlan 'Microsoft.Web/serverFarms@2022-09-01' = {
     reserved: true
   }
   sku: {
-    name: webAppSku
+    name: appServicePlanSku
   }
   tags: tags
 }
