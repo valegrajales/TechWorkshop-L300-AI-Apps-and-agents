@@ -10,6 +10,7 @@ from .agent_executor import AgentFrameworkProductManagementExecutor
 
 logger = logging.getLogger(__name__)
 
+# This class sets up the A2A server for the Zava Product Helper agent, configuring the necessary components and defining the agent's capabilities and skills. The server can be mounted in a FastAPI application to handle incoming requests related to product inquiries.
 class A2AServer:
     """A2A Server wrapper for the Zava Product Helper"""
     
